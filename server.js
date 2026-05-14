@@ -22,13 +22,13 @@ import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
 
 const app = express();
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 7000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173", // if Vite
+  origin: "*", 
   credentials: true
 }));
 app.use(express.json());
@@ -44,10 +44,9 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/reset', resetRoutes);
 app.use('/api/payment-summary', paymentSummaryRoutes);
 
-// Serve static files from the dist folder
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all route to serve index.html for any unmatched routes
 app.get("/", (req, res) => {
   res.send("Ecommerce API working ✅");
 });
@@ -60,15 +59,12 @@ app.get('*', (req, res) => {
   }
 });
 
-// Error handling middleware
-/* eslint-disable no-unused-vars */
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
-/* eslint-enable no-unused-vars */
 
-// Sync database and load default data if none exist
 await sequelize.sync();
 
 const productCount = await Product.count();
