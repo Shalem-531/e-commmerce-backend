@@ -28,7 +28,7 @@ const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors({
-  origin: "*", 
+  origin: "https://e-commmerce-frontend-qobl.vercel.app/",
   credentials: true
 }));
 app.use(express.json());

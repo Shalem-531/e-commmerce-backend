@@ -9,8 +9,8 @@ export const protect = (req, res, next) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // ✅ Only attach user info from token
-      req.user = decoded; // { id: ... }
+  
+      req.user = decoded; 
 
       next();
 
