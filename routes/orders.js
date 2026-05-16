@@ -33,7 +33,11 @@ router.get('/',protect, async (req, res) => {
 });
 
 router.post('/',protect, async (req, res) => {
-  const cartItems = await CartItem.findAll();
+  const cartItems = await CartItem.findAll({
+  where: {
+    userId: req.user.id
+  }
+})
 
   if (cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -78,7 +82,12 @@ router.get('/:orderId',protect,async (req, res) => {
   const { orderId } = req.params;
   const expand = req.query.expand;
 
-  let order = await Order.findByPk(orderId);
+  let order = await Order.findOne({
+  where: {
+    id: orderId,
+    userId: req.user.id
+  }
+})
   if (!order) {
     return res.status(404).json({ error: 'Order not found' });
   }
