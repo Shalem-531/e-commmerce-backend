@@ -20,7 +20,7 @@ import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js'
 import { defaultCart } from './defaultData/defaultCart.js';
 import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
-import { Order } from "./models/Order.js";
+
 
 const app = express();
 const PORT = process.env.PORT || 7000;
