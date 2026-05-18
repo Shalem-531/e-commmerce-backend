@@ -20,6 +20,7 @@ import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js'
 import { defaultCart } from './defaultData/defaultCart.js';
 import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
+import { Order } from "./models/Order.js";
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -46,6 +47,10 @@ app.use('/api/payment-summary', paymentSummaryRoutes);
 
 
 app.use(express.static(path.join(__dirname, 'dist')));
+await Order.destroy({
+   where: {} 
+  }); 
+console.log("All old orders removed");
 
 app.get("/", (req, res) => {
   res.send("Ecommerce API working ✅");
