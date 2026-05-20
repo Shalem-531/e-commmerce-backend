@@ -100,7 +100,7 @@ if (productCount === 0) {
   await Product.bulkCreate(productsWithTimestamps);
   await DeliveryOption.bulkCreate(deliveryOptionsWithTimestamps);
   await CartItem.bulkCreate(cartItemsWithTimestamps);
-  await Order.bulkCreate(ordersWithTimestamps);
+  //await Order.bulkCreate(ordersWithTimestamps);
 
   console.log('Default data added to the database.');
 }
