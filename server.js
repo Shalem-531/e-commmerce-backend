@@ -47,10 +47,7 @@ app.use('/api/payment-summary', paymentSummaryRoutes);
 
 
 app.use(express.static(path.join(__dirname, 'dist')));
-await Order.destroy({
-   where: {} 
-  }); 
-console.log("All old orders removed");
+
 
 app.get("/", (req, res) => {
   res.send("Ecommerce API working ✅");
