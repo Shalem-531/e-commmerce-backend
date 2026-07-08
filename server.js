@@ -20,7 +20,7 @@ import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js'
 import { defaultCart } from './defaultData/defaultCart.js';
 import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
-
+import job from './utils/cron.js'
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -49,7 +49,7 @@ app.use('/api/payment-summary', paymentSummaryRoutes);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   res.send("Ecommerce API working ✅");
 });
 app.get('*', (req, res) => {
@@ -106,6 +106,9 @@ if (productCount === 0) {
 }
 
 // Start server
+if (process.env.NODE_ENV === "production") {
+  job.start();
+}
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
